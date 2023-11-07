@@ -23,4 +23,25 @@ public class CompaniaDeSeguro {
 		return polizas.size();
 	}
 
+	public void denunciarSiniestro(Integer numDePoliza) throws PolizaInexistenteException {
+		PolizaCombinadoFamiliar polizaEncontrada = buscarPolizaPorNum(numDePoliza);
+		
+		if(polizaEncontrada != null) {
+			polizaEncontrada.setFueRobado(true);
+			polizaEncontrada.setTuvoUnAccidente(true);
+		}else {
+			throw new PolizaInexistenteException();
+		}
+		
+	}
+
+	public PolizaCombinadoFamiliar buscarPolizaPorNum(Integer numDePoliza) {
+		for (PolizaCombinadoFamiliar polizaCombinadoFamiliar : polizas) {
+			if(polizaCombinadoFamiliar.getNumPoliza().equals(numDePoliza)) {
+				return polizaCombinadoFamiliar;
+			}
+		}
+		return null;
+	}
+
 }

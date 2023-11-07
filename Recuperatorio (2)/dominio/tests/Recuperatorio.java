@@ -10,6 +10,7 @@ import dominio.Persona;
 import dominio.PolizaAccidentesPersonales;
 import dominio.PolizaCombinadoFamiliar;
 import dominio.PolizaDeAuto;
+import dominio.PolizaInexistenteException;
 import dominio.SegurosDeVida;
 import dominio.SegurosGenerales;
 import dominio.TipoDeBeneficiario;
@@ -94,7 +95,7 @@ public class Recuperatorio {
 
 	
 	@Test
-	public void queSePuedaDenunciarElRoboDeUnAuto() {
+	public void queSePuedaDenunciarElRoboDeUnAuto() throws PolizaInexistenteException {
 		Integer numeroDePoliza = 1;
 		CompaniaDeSeguro libra = new CompaniaDeSeguro("Libra");
 	
@@ -102,36 +103,36 @@ public class Recuperatorio {
 		
 		libra.denunciarSiniestro(1);
 		
-		assertTrue(libra.getPoliza(1).fueRobado());
+		assertTrue(libra.buscarPolizaPorNum(1).getFueRobado());
 		
 	}
 	
-//	@Test
-//	public void queSePuedaDenunciarUnSiniestroParaUnaPolizaDeVida) {
-//		Integer numeroDePoliza = 1;
-//		CompaniaDeSeguro libra = new CompaniaDeSeguro("Libra");
-//	
-//		libra.agregarPoliza(new PolizaAccidentesPersonales(numeroDePoliza, new Persona("Pedro", 455647345, 24), 2000000.0, 5000.0));
-//		
-//		libra.denunciarSiniestro(1);
-//		
-//		assertTrue(libra.getPoliza(1).tuvoAlgunAccidente());
-//		
-//	}
-//	
-//	@Test (expected = PolizaInexistente.class)
-//	public void verificarQueNoSePuedaDenunciarUnSiniestroParaUnaPolizaQueNoExista() {
-//		Integer numeroDePoliza = 1;
-//		CompaniaDeSeguro libra = new CompaniaDeSeguro("Libra");
-//	
-//		libra.agregarPoliza(new PolizaDeAuto(numeroDePoliza++, new Persona("Camila", 45987345, 24), 2000000.0, 5000.0);
-//		libra.agregarPoliza(new PolizaDeAuto(numeroDePoliza++, new Persona("Juan", 2745123, 24), 1500000.0, 4000.0);
-//		libra.agregarPoliza(new PolizaAccidentesPersonales(numeroDePoliza++, new Persona("Pedro", 455647345, 24), 2000000.0, 5000.0);
-//		libra.agregarPoliza(new PolizaCombinadoFamiliar(numeroDePoliza++, new Persona("Natalia", 45987345, 24), 2000000.0, 5000.0);
-//
-//		libra.denunciarSiniestro(5);
-//
-//	}
-//	
+	@Test
+	public void queSePuedaDenunciarUnSiniestroParaUnaPolizaDeVida() throws PolizaInexistenteException {
+		Integer numeroDePoliza = 1;
+		CompaniaDeSeguro libra = new CompaniaDeSeguro("Libra");
+	
+		libra.agregarPoliza(new PolizaAccidentesPersonales(numeroDePoliza, new Persona("Pedro", 455647345, 24), 2000000.0, 5000.0));
+		
+		libra.denunciarSiniestro(1);
+		
+		assertTrue(libra.buscarPolizaPorNum(1).getTuvoUnAccidente());
+		
+	}
+	
+	@Test (expected = PolizaInexistenteException.class)
+	public void verificarQueNoSePuedaDenunciarUnSiniestroParaUnaPolizaQueNoExista() throws PolizaInexistenteException {
+		Integer numeroDePoliza = 1;
+		CompaniaDeSeguro libra = new CompaniaDeSeguro("Libra");
+	
+		libra.agregarPoliza(new PolizaDeAuto(numeroDePoliza++, new Persona("Camila", 45987345, 24), 2000000.0, 5000.0));
+		libra.agregarPoliza(new PolizaDeAuto(numeroDePoliza++, new Persona("Juan", 2745123, 24), 1500000.0, 4000.0));
+		libra.agregarPoliza(new PolizaAccidentesPersonales(numeroDePoliza++, new Persona("Pedro", 455647345, 24), 2000000.0, 5000.0));
+		libra.agregarPoliza(new PolizaCombinadoFamiliar(numeroDePoliza++, new Persona("Natalia", 45987345, 24), 2000000.0, 5000.0));
+
+		libra.denunciarSiniestro(5);
+
+	}
+	
 
 }

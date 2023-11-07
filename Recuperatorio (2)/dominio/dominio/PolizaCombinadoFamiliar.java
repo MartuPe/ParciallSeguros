@@ -13,6 +13,8 @@ public class PolizaCombinadoFamiliar{
 	protected Double sumaAsegurada;
 	protected Double prima;
 	protected Double premio;
+	protected Boolean fueRobado;
+	protected Boolean tuvoUnAccidente;
 	protected final Integer impuesto = 1000;
 	private Set<Bienes> bienesAsegurados;
 	private Map<Integer, TipoDeBeneficiario> beneficiarios;
@@ -24,6 +26,7 @@ public class PolizaCombinadoFamiliar{
 		this.sumaAsegurada = sumaAsegurada;
 		this.prima = prima;
 		this.premio = 0.0;
+		fueRobado = false;
 		beneficiarios = new HashMap<>();
 		bienesAsegurados = new HashSet<>();
 	}
@@ -73,6 +76,22 @@ public class PolizaCombinadoFamiliar{
 //			return false;
 		PolizaCombinadoFamiliar other = (PolizaCombinadoFamiliar) obj;
 		return Objects.equals(numPoliza, other.numPoliza);
+	}
+
+	public Boolean getFueRobado() {
+		return fueRobado;
+	}
+
+	public void setFueRobado(Boolean fueRobado) {
+		this.fueRobado = fueRobado;
+	}
+
+	public Boolean getTuvoUnAccidente() {
+		return tuvoUnAccidente;
+	}
+
+	public void setTuvoUnAccidente(Boolean tuvoUnAccidente) {
+		this.tuvoUnAccidente = tuvoUnAccidente;
 	}
 	
 
