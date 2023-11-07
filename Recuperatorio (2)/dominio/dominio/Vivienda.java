@@ -1,6 +1,6 @@
 package dominio;
 
-public class Vivienda {
+public class Vivienda extends Bienes{
 
 	private String direccion;
 	private String ciudad;
